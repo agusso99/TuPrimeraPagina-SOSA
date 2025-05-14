@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Proyectos</title>
-</head>
-<body>
-    <h1> Lista de Proyectos</h1>
-    <h1> {{ Proyecto.titulo }} </h1>
-    <h1> {{ Proyecto.descripcion }}</h1>
-    <h1> {{ Proyecto.fecha_lanzamiento }}</h1>
-</body>
-</html>
+{% extends 'Blog/base.html' %}
+
+{% block title %}
+    Proyectos
+{% endblock title %}
+
+{% block content_title %}
+    Proyectos
+{% endblock content_title %}
+{% block content %}
+    <ul>
+        {% for proyecto in proyectos %}
+            <li>
+                <h2>{{ proyecto.titulo }}</h2>
+                <p>{{ proyecto.descripcion }}</p>
+                <small>Fecha de lanzamiento: {{ proyecto.fecha_lanzamiento }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from .models import Proyecto, Publicacion, Contacto
 
+
+def index(request):
+    return render(request, "Blog/index.html")
+
 def lista_proyectos(request):
     proyectos = Proyecto.objects.all()
     return render(request, "Blog/proyecto.html", {"proyectos": proyectos})

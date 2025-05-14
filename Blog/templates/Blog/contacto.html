@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title> Contacto </title>
-</head>
-<body>
+{% extends 'Blog/base.html' %}
+
+{% block title %}
+    Contacto
+{% endblock title %}
+
+{% block content_title %}
+    Contacto
+{% endblock content_title %}
+{% block content %}
     <h1> Mensajes </h1>
     <ul>
-        {% for mensaje in Contacto %}
-            <li> {{ Contacto.nombre }} {{ Contacto.email }}
-                <h1>{{ Contacto.mensaje }} </h1>
+        {% for mensaje in contactos %}
+            <li>
+                {{ mensaje.nombre }}  ({{ mensaje.email }}) envió un mensaje y su estado es: {{ mensaje.estado }}
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock content %}

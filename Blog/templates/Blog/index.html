@@ -1,0 +1,25 @@
+{% extends 'Blog/base.html' %}
+
+{% block title %}
+    Inicio
+{% endblock title %}
+{% block content_title %}
+    Bienvenidos a mi portfolio
+{% endblock content_title %}
+{% block content %}
+    <div class="d-flex justify-content-center my-4">
+    <a href="{% url 'lista_proyectos' %}" class="btn btn-dark rounded-pill px-4 py-2 shadow-sm">
+        Proyectos
+    </a>
+    </div>
+    <div class="d-flex justify-content-center my-4">
+    <a href="{% url 'lista_publicaciones' %}" class="btn btn-dark rounded-pill px-4 py-2 shadow-sm">
+        Publicaciones
+    </a>
+    </div>
+    <div class="d-flex justify-content-center my-4">
+    <a href="{% url 'mensajes' %}" class="btn btn-dark rounded-pill px-4 py-2 shadow-sm">
+        Contacto
+    </a>
+    </div>
+{% endblock content %}
