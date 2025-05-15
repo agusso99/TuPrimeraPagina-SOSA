@@ -8,6 +8,10 @@
     Proyectos
 {% endblock content_title %}
 {% block content %}
+
+    <form action="{% url 'lista_proyectos' %}" method="get">
+        <input type="text" name="busqueda" placeholder="Buscar..." type="submit" class="form-control mb-3">
+    </form>
     <ul>
         {% for proyecto in proyectos %}
             <li>
