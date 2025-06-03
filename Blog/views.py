@@ -36,3 +36,6 @@ def crear_mensaje(request):
     else:
         form = ContactoForm()
     return render(request, "Blog/contacto.html", {"form": form})
+
+def profile(request):
+    return render(request, 'accounts/profile.html')

@@ -1,0 +1,11 @@
+{% extends 'Blog/base.html' %}
+
+{% block content_title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-dark">Entrar</button>
+</form>
+{% endblock %}

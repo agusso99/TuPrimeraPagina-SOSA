@@ -1,0 +1,12 @@
+{% extends 'Blog/base.html' %}
+
+{% block content_title %}Editar Perfil{% endblock content_title %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>
+{% endblock %}
