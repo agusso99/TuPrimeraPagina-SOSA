@@ -1,24 +1,45 @@
 {% extends 'Blog/base.html' %}
 
-{% block title %}
-    Proyectos
-{% endblock title %}
+{% block title %}Proyectos{% endblock title %}
 
 {% block content_title %}
-    Proyectos
+    <i class="bi bi-camera-reels text-info"></i> Proyectos
 {% endblock content_title %}
+
 {% block content %}
 
-    <form action="{% url 'lista_proyectos' %}" method="get">
-        <input type="text" name="busqueda" placeholder="Buscar..." type="submit" class="form-control mb-3">
-    </form>
-    <ul>
-        {% for proyecto in proyectos %}
-            <li>
-                <h2>{{ proyecto.titulo }}</h2>
-                <p>{{ proyecto.descripcion }}</p>
-                <small>Fecha de lanzamiento: {{ proyecto.fecha_lanzamiento }}</small>
-            </li>
-        {% endfor %}
-    </ul>
+{% if user.is_authenticated %}
+    <div class="text-end mb-4">
+        <a href="{% url 'crear_proyecto' %}" class="btn btn-success rounded-pill px-4 shadow-sm">
+            <i class="bi bi-plus-circle-fill"></i> Agregar Proyecto
+        </a>
+    </div>
+{% endif %}
+
+<form method="get" class="d-flex mb-5">
+    <input class="form-control me-2 rounded-pill shadow-sm" type="search" name="q" placeholder="Buscar proyectos..." value="{{ request.GET.q }}">
+</form>
+
+{% for proyecto in proyectos %}
+<div class="card mb-4 shadow-sm border-0 rounded-4">
+    <div class="card-body">
+        <h4 class="card-title text-info">
+            <a href="{% url 'detalle_proyecto' proyecto.pk %}" class="text-decoration-none">{{ proyecto.titulo }}</a>
+        </h4>
+        <p class="card-text text-secondary">{{ proyecto.descripcion|truncatewords:25 }}</p>
+        <p class="text-muted">
+            <i class="bi bi-person-circle"></i> {{ proyecto.autor.username }}
+        </p>
+        {% if user.is_authenticated and proyecto.autor == user %}
+        <div class="d-flex gap-2">
+            <a href="{% url 'modificar_proyecto' proyecto.id %}" class="btn btn-warning btn-sm">Modificar</a>
+            <a href="{% url 'eliminar_proyecto' proyecto.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+    <div class="alert alert-info text-center">No hay proyectos disponibles.</div>
+{% endfor %}
+
 {% endblock content %}

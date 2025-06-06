@@ -1,0 +1,21 @@
+{% extends 'Blog/base.html' %}
+
+{% block title %}{{ proyecto.titulo }}{% endblock title %}
+
+{% block content %}
+<div class="card shadow-sm border-0 rounded-4 p-4 mb-5">
+    <h2 class="mb-4">{{ proyecto.titulo }}</h2>
+    {% if proyecto.imagen %}
+        <img src="{{ proyecto.imagen.url }}" alt="Imagen del proyecto" class="img-fluid rounded mb-4" style="max-height: 400px; object-fit: cover;">
+    {% endif %}
+    <ul class="list-unstyled fs-5">
+        <li><strong>🎬 Género:</strong> {{ proyecto.genero }}</li>
+        <li><strong>📅 Fecha de lanzamiento:</strong> {{ proyecto.fecha_lanzamiento }}</li>
+        <li><strong>⏱ Duración:</strong> {{ proyecto.duracion }} minutos</li>
+    </ul>
+    <p class="mt-4 text-body-secondary fs-5">{{ proyecto.descripcion }}</p>
+    <a href="{% url 'lista_proyectos' %}" class="btn btn-outline-secondary mt-4 rounded-pill">
+        ← Volver a la lista
+    </a>
+</div>
+{% endblock %}

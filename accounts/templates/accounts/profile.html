@@ -1,20 +1,23 @@
 {% extends 'Blog/base.html' %}
-
-{% block content_title %}Perfil de {{ user.username }}{% endblock %}
+{% block title %}Mi Perfil{% endblock %}
+{% block content_title %}Mi Perfil{% endblock %}
 
 {% block content %}
-  <h2>Perfil de {{ user.username }}</h2>
+<div class="card w-75 mx-auto">
+  <div class="card-body text-center">
+    {% if profile.avatar %}
+      <img src="{{ profile.avatar.url }}" alt="Avatar" class="rounded-circle mb-3" style="max-width:150px;">
+    {% else %}
+      <p class="text-muted">No tienes avatar cargado.</p>
+    {% endif %}
 
-  {% if profile.avatar %}
-    <img src="{{ profile.avatar.url }}" alt="Avatar de {{ user.username }}" style="max-width:150px; border-radius:50%;">
-  {% else %}
-    <p>No tienes avatar cargado.</p>
-  {% endif %}
+    <h5>{{ user.username }}</h5>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Biografía:</strong> {{ profile.bio|default:"No hay biografía." }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ profile.birthday|date:"d M Y"|default:"No hay fecha de nacimiento." }}</p>
 
-  <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Biografía:</strong> {{ profile.bio|default:"No hay biografía." }}</p>
-  <p><strong>Fecha de nacimiento:</strong> {{ profile.birthday|date:"d M Y"|default:"No hay fecha de nacimiento." }}</p>
-
-  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Editar perfil</a>
+    <a href="{% url 'edit_profile' %}" class="btn btn-primary me-2">Editar perfil</a>
+    <a href="{% url 'password_change' %}" class="btn btn-warning">Editar contraseña</a>
+  </div>
+</div>
 {% endblock %}

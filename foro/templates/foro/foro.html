@@ -1,0 +1,57 @@
+{% extends 'Blog/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Foro de Mensajes{% endblock %}
+{% block content_title %}
+    <i class="bi bi-chat-dots text-primary"></i> Foro de Mensajes
+{% endblock %}
+
+{% block content %}
+<h5 class="mb-3"><i class="bi bi-pencil-square"></i> Escribir nuevo mensaje</h5>
+<div class="card shadow-sm border-0 rounded-4 p-4 mb-5">
+    <form method="post" class="row g-3">
+        {% csrf_token %}
+
+        <div class="col-12">
+            {{ form.receptor.label_tag }}
+            {{ form.receptor|add_class:"form-control w-100" }}
+        </div>
+
+        <div class="col-12">
+            {{ form.contenido.label_tag }}
+            {{ form.contenido|add_class:"form-control w-100" }}
+        </div>
+
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                <i class="bi bi-send-fill"></i> Enviar
+            </button>
+        </div>
+    </form>
+</div>
+
+<h5 class="mb-3"><i class="bi bi-inbox"></i> Mensajes recibidos</h5>
+{% for mensaje in mensajes_recibidos %}
+    <div class="card mb-3 border-start border-3 border-info shadow-sm rounded-4">
+        <div class="card-body">
+            <p class="mb-1"><strong><i class="bi bi-person-fill"></i> {{ mensaje.emisor.username }}</strong></p>
+            <p class="text-muted">{{ mensaje.contenido }}</p>
+            <p class="text-end text-muted small"><i class="bi bi-clock"></i> {{ mensaje.fecha|date:"d M Y H:i" }}</p>
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-info text-center">No hay mensajes recibidos.</div>
+{% endfor %}
+
+<h5 class="mb-3 mt-5"><i class="bi bi-send"></i> Mensajes enviados</h5>
+{% for mensaje in mensajes_enviados %}
+    <div class="card mb-3 border-start border-3 border-secondary shadow-sm rounded-4">
+        <div class="card-body">
+            <p class="mb-1">Para: <strong><i class="bi bi-person-fill"></i> {{ mensaje.receptor.username }}</strong></p>
+            <p class="text-muted">{{ mensaje.contenido }}</p>
+            <p class="text-end text-muted small"><i class="bi bi-clock"></i> {{ mensaje.fecha|date:"d M Y H:i" }}</p>
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-secondary text-center">No hay mensajes enviados.</div>
+{% endfor %}
+{% endblock %}

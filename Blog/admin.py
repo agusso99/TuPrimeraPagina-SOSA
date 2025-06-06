@@ -8,9 +8,10 @@ from .models import Proyecto, Publicacion, Contacto
 
 @admin.register(Proyecto)
 class ProyectoAdmin(admin.ModelAdmin):
-    list_display = ["titulo", "descripcion", "fecha_lanzamiento", "duracion", "genero"]
+    list_display = ["titulo", "descripcion", "fecha_lanzamiento", "duracion", "genero", "vista_imagen"]
     list_filter = ["titulo"]
     ordering = ["-fecha_lanzamiento"]
+    readonly_fields = ["vista_imagen"]
 
 @admin.register(Publicacion)
 class PublicacionAdmin(admin.ModelAdmin):

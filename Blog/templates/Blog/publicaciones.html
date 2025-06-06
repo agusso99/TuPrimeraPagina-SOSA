@@ -1,32 +1,47 @@
 {% extends 'Blog/base.html' %}
 
-{% block title %}
-    Publicaciones
-{% endblock title %}
-
+{% block title %}Publicaciones{% endblock %}
 {% block content_title %}
-    Publicaciones
-{% endblock content_title %}
-{% block content %}
+    <i class="bi bi-journal-richtext text-info"></i> Publicaciones
+{% endblock %}
 
-    <form action="{% url 'lista_publicaciones' %}" method="get">
-        <input type="text" name="busqueda" placeholder="Buscar..." type="submit" class="form-control mb-3">
-    </form>
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        {% for publicacion in publicaciones %}
-            <div class="col">
-                <a href="#" class="text-decoration-none text-dark">
-                    <div class="card h-100 shadow-sm border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ publicacion.titulo }}</h5>
-                            <p class="card-text">{{ publicacion.contenido }}</p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <small class="text-muted">Publicado el: {{ publicacion.fecha }}</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="text-end mb-4">
+        <a href="{% url 'crear_publicacion' %}" class="btn btn-success rounded-pill px-4 shadow-sm">
+            <i class="bi bi-pencil-square"></i> Nueva Publicación
+        </a>
     </div>
-{% endblock content %}
+{% endif %}
+
+<form method="get" class="mb-4">
+    <input type="text" name="q" class="form-control rounded-pill shadow-sm" placeholder="Buscar publicaciones..." value="{{ request.GET.busqueda }}">
+</form>
+
+{% for publicacion in publicaciones %}
+    <div class="card mb-4 shadow-sm border-0 rounded-4">
+        <div class="card-body">
+            <h4 class="card-title text-primary">
+                <a href="{% url 'detalle_publicacion' publicacion.pk %}" class="text-decoration-none">{{ publicacion.titulo }}</a>
+            </h4>
+            <p class="card-text text-secondary">{{ publicacion.contenido|truncatewords:25 }}</p>
+            <p class="mb-1 text-muted">
+                <i class="bi bi-calendar-event"></i> {{ publicacion.fecha|date:"d M Y H:i" }}
+                {% if publicacion.proyecto_relacionado %}
+                    — 🎬 Proyecto: <strong>{{ publicacion.proyecto_relacionado.titulo }}</strong>
+                {% endif %}
+            </p>
+            <p class="text-muted mb-2"><i class="bi bi-person-circle"></i> {{ publicacion.autor.username }}</p>
+
+            {% if user.is_authenticated and publicacion.autor == user %}
+                <div class="d-flex gap-2">
+                    <a href="{% url 'modificar_publicacion' publicacion.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminar_publicacion' publicacion.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-info text-center">No hay publicaciones disponibles.</div>
+{% endfor %}
+{% endblock %}

@@ -19,15 +19,20 @@ from django.urls import path, include
 from Blog import views
 from django.conf import settings
 from django.conf.urls.static import static
+from Blog.views import ProyectoListView, PublicacionListView
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('proyectos/', views.lista_proyectos, name="lista_proyectos"),
-    path('publicaciones/', views.lista_publicaciones, name="lista_publicaciones"),
+    path('proyectos/', include('Blog.urls')),
+    path('publicaciones/', PublicacionListView.as_view(), name="lista_publicaciones"),
     path('contacto/', views.crear_mensaje, name="crear_mensajes"),
+    path('about/', views.about_view, name="about"),
     path("", views.index, name="index"),
     path('accounts/', include('accounts.urls')),
     path('accounts/profile/', views.profile, name="profile"),
+    path('foro/', include('foro.urls')),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
 
 if settings.DEBUG:

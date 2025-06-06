@@ -1,29 +1,32 @@
 {% extends 'Blog/base.html' %}
 
-{% block title %}
-    Contacto
-{% endblock title %}
+{% block title %}Contacto{% endblock title %}
 
 {% block content_title %}
-    Contacto
+<span class="text-info">CoolFilm</span> | Contacto
 {% endblock content_title %}
+
 {% block content %}
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body p-5 bg-white">
-                    <h2 class="text-center mb-4">Envíanos un mensaje</h2>
-                    <form method="POST" action="{% url 'crear_mensajes' %}">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-dark px-5 py-2 rounded-pill">
-                                Enviar
-                            </button>
-                        </div>
-                    </form>
-                </div>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-5 bg-white">
+                <h2 class="text-center mb-3">
+                    <i class="bi bi-envelope-paper-heart text-info"></i> Envíanos un mensaje
+                </h2>
+                <p class="text-center text-muted mb-4">¿Tenés dudas, ideas o querés contactarnos? ¡Escribinos!</p>
+
+                <form method="POST" action="{% url 'crear_mensajes' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-info px-5 py-2 rounded-pill text-white fw-semibold shadow-sm">
+                            <i class="bi bi-send-fill"></i> Enviar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}

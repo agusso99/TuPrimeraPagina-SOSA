@@ -1,25 +1,41 @@
 {% extends 'Blog/base.html' %}
 
-{% block title %}
-    Inicio
-{% endblock title %}
+{% block title %}Inicio{% endblock %}
+
 {% block content_title %}
-    Bienvenidos a mi portfolio
-{% endblock content_title %}
+<div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">
+        {% if user.is_authenticated %}
+            🎬 ¡Bienvenid@ <span class="text-info">{{ user.username }}</span>!
+        {% else %}
+            🎬 Bienvenido a <span class="text-info">CoolFilm :)</span>
+        {% endif %}
+    </h1>
+</div>
+{% endblock %}
+
 {% block content %}
-    <div class="d-flex justify-content-center my-4">
-    <a href="{% url 'lista_proyectos' %}" class="btn btn-dark rounded-pill px-4 py-2 shadow-sm">
-        Proyectos
-    </a>
+<div class="text-center">
+    <p class="lead mb-4">Un espacio creativo donde cineastas independientes comparten sus ideas, visiones y sueños.</p>
+
+    <div class="d-grid gap-3 col-12 col-sm-8 col-md-6 mx-auto">
+        {% if not user.is_authenticated %}
+        <a href="{% url 'register' %}" class="btn btn-info btn-lg text-white fw-semibold shadow-sm">
+            <i class="bi bi-person-plus-fill"></i> Registrate ahora
+        </a>
+        {% endif %}
+
+        <a href="{% url 'lista_proyectos' %}" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-film"></i> Ver Proyectos
+        </a>
+
+        <a href="{% url 'lista_publicaciones' %}" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-journal-text"></i> Ver Publicaciones
+        </a>
+
+        <a href="{% url 'foro' %}" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-chat-dots"></i> Foro de Mensajes
+        </a>
     </div>
-    <div class="d-flex justify-content-center my-4">
-    <a href="{% url 'lista_publicaciones' %}" class="btn btn-dark rounded-pill px-4 py-2 shadow-sm">
-        Publicaciones
-    </a>
-    </div>
-    <div class="d-flex justify-content-center my-4">
-    <a href="{% url 'crear_mensajes' %}" class="btn btn-dark rounded-pill px-4 py-2 shadow-sm">
-        Contacto
-    </a>
-    </div>
-{% endblock content %}
+</div>
+{% endblock %}

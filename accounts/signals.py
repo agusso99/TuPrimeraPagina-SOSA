@@ -6,14 +6,7 @@ from .models import Profile
 @receiver(post_save, sender=User)
 def create_or_update_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
+        Profile.objects.get_or_create(user=instance)
+    else:
+        instance.profile.save()
 
-@receiver(post_save, sender=User)
-def crear_perfil_usuario(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def guardar_perfil_usuario(sender, instance, **kwargs):
-    instance.profile.save()

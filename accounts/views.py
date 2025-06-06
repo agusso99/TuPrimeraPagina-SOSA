@@ -1,18 +1,22 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .forms import UserForm, ProfileForm
+from .forms import UserForm, ProfileForm, RegistroUsuarioForm
+from django.contrib.auth.views import LoginView
+from django.contrib import messages
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = RegistroUsuarioForm()
     return render(request, 'accounts/register.html', {'form': form})
+
+
 
 @login_required
 def edit_profile(request):
@@ -26,7 +30,7 @@ def edit_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('profile')  # Después definirás esta vista o el url 'profile'
+            return redirect('profile')
     else:
         user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=profile)
@@ -43,3 +47,11 @@ def profile(request):
         'user': request.user,
         'profile': request.user.profile,
     })
+
+class CustomLoginView(LoginView):
+    template_name = 'accounts/login.html'
+
+    def get(self, request, *args, **kwargs):
+        if 'next' in request.GET:
+            messages.warning(request, "Debes iniciar sesión para acceder al foro de mensajes.")
+        return super().get(request, *args, **kwargs)

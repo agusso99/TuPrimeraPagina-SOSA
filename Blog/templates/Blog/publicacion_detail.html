@@ -1,0 +1,23 @@
+{% extends 'Blog/base.html' %}
+
+{% block title %}{{ publicacion.titulo }}{% endblock %}
+{% block content_title %}<i class="bi bi-file-text"></i> {{ publicacion.titulo }}{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0 rounded-4 p-4">
+    <h5 class="text-muted mb-2">
+        <i class="bi bi-person-fill"></i> {{ publicacion.autor.username }} —
+        <i class="bi bi-clock"></i> {{ publicacion.fecha|date:"d M Y H:i" }}
+    </h5>
+
+    {% if publicacion.proyecto_relacionado %}
+        <p class="mb-3"><strong>🎬 Proyecto relacionado:</strong> {{ publicacion.proyecto_relacionado.titulo }}</p>
+    {% endif %}
+
+    <div class="fs-5 text-body-secondary mb-3">{{ publicacion.contenido|linebreaks }}</div>
+
+    <a href="{% url 'lista_publicaciones' %}" class="btn btn-outline-secondary rounded-pill px-4">
+        ← Volver
+    </a>
+</div>
+{% endblock %}

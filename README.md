@@ -1,9 +1,29 @@
 # TuPrimeraPagina-SOSA
+superuser: agustinsosa |
+password superuser: 12345
 
-Cree una página estilo blog la cual está pensada para un filmmaker.
-En una aplicación llamada "Blog", en el archivo models.py genere 3 clases llamadas Proyecto, Publicacion y Contacto.
+Cree una página estilo blog la cual está pensada para que filmmakers independientes puedan subir sus proyectos y publicaciones y que otras personas puedan verlos.
 
-En el archivo views.py, dentro de mi app "Blog" tengo 4 funciones las cuales controlan la lógica de mi página.
+Es una aplicación llamada "CoolFilm" la cual permite:
 
-Dentro de mi app "Blog", generé las carpetas "templates/Blog" donde en ellas se encuentran 5 archivos .html.
-Uno de ellos (base.html) es el template padre y los demás heredan templates de él.
+- Registrarte.
+- Loguearte (si estas registrado):
+  - Si estás logueado te permite:
+    - Acceder a "Inicio" donde podes:
+        - Acceder al listado de Proyectos y Publicaciones.
+        - Acceder al "Foro de Mensajes" para comunicarte con otros filmmakers.
+    - Acceder al listado de Proyectos y Publicaciones.
+        - Agregar Proyectos y Publicaciones.
+        - A tus Proyectos o Publicaciones los podes "Editar" o "Eliminar".
+        - Ver en detalle cada Proyecto y Publicacion (propias y de otros). 
+    - Acceder al "Foro de Mensajes" para comunicarte con otros filmmakers.
+    - Acceder a "Mi Perfil" donde el usuario puede "Editar perfil" y "Editar contraseña".
+  - Si NO estás logueado te permite:
+    - Acceder a "Inicio" donde podes:
+      - Acceder al listado de Proyectos y Publicaciones.
+      - "Registrarte ahora"
+      - Si queres acceder al foro de mensajes te pide que te loguees.
+    - Acceder a "Contacto" para poder comunicarte con CoolFilm.
+    - Acceder a "Sobre Nosotros" donde aparece sobre CoolFilm.
+    - Acceder a "Iniciar Sesión".
+    - Acceder a "Registrarse"
